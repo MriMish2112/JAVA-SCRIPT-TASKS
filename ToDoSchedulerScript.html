@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Scheduler</title>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>To-Do Scheduler</h1>
+        <input type="text" id="todoData" placeholder="Enter to-do">
+
+        <input type="datetime-local" id="todoTime">
+
+        <button id="addTodoButton">Add To-Do</button>
+
+        <div class="todo-list" id="todoList">
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('addTodoButton').addEventListener('click', function() {
+            const toDoData = document.getElementById('todoData').value;
+            const dateTime = document.getElementById('todoTime').value;
+            const toDoList = document.getElementById('todolist');
+            
+            // const toDoInputData = toDoData.value;
+            // const toDoInputTime = time.value;
+
+            const addedData = document.createElement('div');
+            addedData.textContent = `${toDoData}`;
+
+            todoList.appendChild(addedData);
+
+            const getTime = new Date(dateTime).getTime();
+            const currentDate = new Date().getTime();
+            const timediff = getTime - currentDate;
+
+            console.log(getTime, currentDate, timediff);
+            
+            if(timediff > 0)
+            {
+                if(Notification.permission === "granted")
+                        {
+                            new Notification("To-DO List", {
+                                body: 'HEY! your task is overdue'
+                            });
+                        }
+
+            }
+
+        });
+    </script>
+</body>
+
+</html>

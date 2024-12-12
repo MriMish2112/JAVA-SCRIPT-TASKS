@@ -29,8 +29,8 @@
             const dateTime = document.getElementById('todoTime').value;
             const toDoList = document.getElementById('todolist');
             
-            const toDoInputData = toDoData.value;
-            const toDoInputTime = time.value;
+            // const toDoInputData = toDoData.value;
+            // const toDoInputTime = time.value;
 
             const addedData = document.createElement('div');
             addedData.textContent = `${toDoData}`;
@@ -40,21 +40,28 @@
             const getTime = new Date(dateTime).getTime();
             const currentDate = new Date().getTime();
             const timediff = getTime - currentDate;
-
-            console.log(getTime, currentDate, timediff);
-            
+  
             if(timediff > 0)
             {
-                if(Notification.permission === "granted")
-                        {
-                            new Notification("To-DO List", {
-                                body: 'HEY! your task is overdue'
-                            });
-                        }
+                setTimeout(() => {
+                    showNotification();
+                }, timediff);
 
             }
-
+            else if (timediff < 60000) {
+                showNotification();
+                
+            }
         });
+
+        function showNotification() {
+            if(Notification.permission === "granted")
+            {
+                new Notification("To-DO List", {
+                    body: 'HEY! your task is overdue'
+                });
+            }
+        }
     </script>
 </body>
 
